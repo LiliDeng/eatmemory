@@ -77,25 +77,18 @@ int main(int argc, char *argv[]){
                     size = (atol(arg) * (long)getFreeSystemMemory())/100;
                 }
 #endif                
-                else{
+                else {
                     printf("Invalid size format\n");
                     exit(0);
                 }
-            }else{
+            } else {
                 size=atoi(arg);
             }
             printf("Eating %ld bytes in chunks of %d...\n",size,chunk);
-            if(eat(size,chunk)){
-                if(isatty(fileno(stdin))) {
-                    printf("Done, press any key to free the memory\n");
-                    getchar();
-                } else {
-                    printf("Done, kill this process to free the memory\n");
-                    while(true) {
-                        sleep(1);
-                    }
-                }
-            }else{
+            if(eat(size,chunk)) {
+               printf("Eating memory successfully\n");
+	       exit(0);
+            } else {
                 printf("ERROR: Could not allocate the memory");
             }
         }
